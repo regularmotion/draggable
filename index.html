@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>Draggable</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi">
+	<link rel='stylesheet' type='text/css' href='css/draggable.css'/>
+</head>
+<style>
+* {
+	border: 0;
+	margin: 0;
+	padding: 0;
+	
+	color: #f1f1f1;
+	font-size: 15pt;
+	font-weight: 900;
+	font-family: Helvetica;
+	text-shadow: 0 -1px 1px #000, 0 1px 1px #000;
+}
+
+body {
+	background: #234098;
+}
+div.drag {
+	position: absolute;
+	top: 50px;
+	width: 150px;
+	height: 150px;
+}
+
+div#draggable1 {
+	left: 50px;
+	background: red;
+}
+div#draggable2 {
+	left: 250px;
+	background: blue;
+}
+div#draggable3 {
+	left: 450px;
+	background: green;
+}
+div.drag div.inner {
+	position: absolute;
+	top: 25px;
+	left: 25px;
+	width: 100px;
+	height: 100px;
+	background: gray;
+}
+
+div.dropable {
+	position: absolute;
+	bottom: 50px;
+	width: 200px;
+	height: 200px;
+	background: yellow;
+}
+div#dropable1 {
+	left: 50px;
+}
+div#dropable2 {
+	left: 300px;
+}
+div#dropable3 {
+	left: 550px;
+}
+div#dropable4 {
+	left: 800px;
+}
+div#dropable5 {
+	left: 1050px;
+}
+div#dropable6 {
+	left: 1300px;
+}
+</style>
+<body>
+
+<div id='draggable1' class='drag'>Draggable 1</div>
+<div id='draggable2' class='drag'>Draggable 2
+	<div class='inner'></div>
+</div>
+<div id='draggable3' class='drag'>Draggable 3</div>
+
+<div id='dropable1' class='dropable'>Droppable 1</div>
+<div id='dropable2' class='dropable'>Droppable 2</div>
+<div id='dropable3' class='dropable'>Droppable 3</div>
+<div id='dropable4' class='dropable'>Droppable 4</div>
+<div id='dropable5' class='dropable'>Droppable 5</div>
+<div id='dropable6' class='dropable'>Droppable 6</div>
+
+<script type='text/javascript' src='js/extensions.js'></script>
+<script type='text/javascript' src='js/draggable.js'></script>
+<script type='text/javascript' src='js/droppable.js'></script>
+<script>
+var yb = new Draggable('draggable1', function(id) {
+	// alert(id);
+});
+var ct = new Draggable('draggable2', function(id) {
+	// alert(id);
+});
+var ct = new Draggable('draggable3', function(id) {
+	// alert(id);
+});
+
+var dp1 = droppable.add('dropable1', function(id) {
+	document.getElementById(id).style.display = 'none';
+});
+var dp2 = droppable.add('dropable2', function(id) {
+	document.getElementById(id).style.display = 'none';
+});
+var dp2 = droppable.add('dropable3', function(id) {
+	document.getElementById(id).style.display = 'none';
+});
+var dp2 = droppable.add('dropable4', function(id) {
+	document.getElementById(id).style.display = 'none';
+});
+var dp2 = droppable.add('dropable5', function(id) {
+	document.getElementById(id).style.display = 'none';
+});
+var dp2 = droppable.add('dropable6', function(id) {
+	document.getElementById(id).style.display = 'none';
+});
+</script>
+</body>
+</html>
