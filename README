@@ -12,13 +12,13 @@
  *  2. Initiate Draggable Objests with element ID or element itself.
  *     callback function is called if draggable object dropped at droppable object.
  *     - var draggable = new Draggable('draggable1', function(id) {
- *			// alert(id);
- *		 });
+ *	         // alert(id);
+ *       });
  *
  *  3. Initiate Droppable Objects with element ID or element itself.
  *     callback function is called if draggable object dropped at.
  *     - var dp1 = droppable.add('dropable1', function(id) {
- *			document.getElementById(id).style.display = 'none';
- *		 });
+ *	         document.getElementById(id).style.display = 'none';
+ *       });
  *
  */
