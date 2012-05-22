@@ -3,7 +3,6 @@
  */
 function Draggable(id, callback) {
 	this.el = (typeof id === 'string')? document.getElementById(id) : id;
-	this.el.style['z-index'] = Draggable.MAX_Z++;
 	this.el.addEventListener(Draggable.EVT_START, this, false);
 	
 	this.state = Draggable.STATE.IDLE;
@@ -44,7 +43,7 @@ Draggable.prototype.handleEvent = function(e) {
 
 Draggable.prototype.onDragStart = function(x, y) {
 	this.el.addClass('draggable');
-	this.el.style['z-index'] = Draggable.MAX_Z++;
+	this.el.style['zIndex'] = Draggable.MAX_Z++;
 	this.state = Draggable.STATE.DRAG;
 	this.offsetX = this.el.offsetLeft;
 	this.offsetY = this.el.offsetTop;
