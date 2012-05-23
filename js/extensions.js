@@ -23,3 +23,27 @@ Element.prototype.removeClass = function(className) {
 	
 	return this;
 };
+
+Element.prototype.getTop = function() {
+	var el = this,
+		top = 0;
+	
+	do {
+		top += el.offsetTop;
+		el = el.offsetParent;
+	} while ( el !== document.body );
+	
+	return top;
+};
+
+Element.prototype.getLeft = function(el) {
+	var el = this,
+		left = 0;
+	
+	do {
+		left += el.offsetLeft;
+		el = el.offsetParent;
+	} while ( el !== document.body );
+	
+	return left;
+};

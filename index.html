@@ -5,6 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<title>Draggable</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi">
+	<link href='http://fonts.googleapis.com/css?family=Oleo+Script:700' rel='stylesheet' type='text/css'>
 	<link rel='stylesheet' type='text/css' href='css/draggable.css'/>
 </head>
 <style>
@@ -19,17 +20,38 @@
 	font-family: Helvetica;
 	text-shadow: 0 -1px 1px #000, 0 1px 1px #000;
 }
-
 body {
-	background: #234098;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: #f1f1f1;
 }
+div#padding1 {
+	position: absolute;
+	width: 100%;
+	height: 100px;
+	text-align: right;
+}
+div#padding2 {
+	position: relative;
+	top: 100px;
+	width: 100%;
+	height: 20px;
+	background: #12a212;
+}
+div#padding1 span#title {
+	color: #333;
+	font-size: 50pt;
+	font-family: "Oleo Script";
+}
+
+
 div.drag {
 	position: absolute;
-	top: 50px;
+	top: 150px;
 	width: 150px;
 	height: 150px;
 }
-
 div#draggable1 {
 	left: 50px;
 	background: red;
@@ -39,8 +61,10 @@ div#draggable2 {
 	background: blue;
 }
 div#draggable3 {
-	left: 450px;
-	background: green;
+	position: relative;
+	top: 50px;
+	left: 460px;
+	background: yellow;
 }
 div.drag div.inner {
 	position: absolute;
@@ -51,78 +75,56 @@ div.drag div.inner {
 	background: gray;
 }
 
+
 div.dropable {
-	position: absolute;
-	bottom: 50px;
+	position: relative;
+	display: inline-block;
+	top: 350px;
+	left: 10px;
 	width: 200px;
 	height: 200px;
-	background: yellow;
-}
-div#dropable1 {
-	left: 50px;
-}
-div#dropable2 {
-	left: 300px;
-}
-div#dropable3 {
-	left: 550px;
-}
-div#dropable4 {
-	left: 800px;
-}
-div#dropable5 {
-	left: 1050px;
-}
-div#dropable6 {
-	left: 1300px;
+	background: #398042;
 }
 </style>
 <body>
+<div id='padding1'>
+	<span id='title'>Draggable v 0.5</span>
+</div>
+<div id='padding2'>
+	<div id='draggable3' class='drag'>Draggable 3</div>
+</div>
 
 <div id='draggable1' class='drag'>Draggable 1</div>
 <div id='draggable2' class='drag'>Draggable 2
 	<div class='inner'></div>
 </div>
-<div id='draggable3' class='drag'>Draggable 3</div>
 
-<div id='dropable1' class='dropable'>Droppable 1</div>
-<div id='dropable2' class='dropable'>Droppable 2</div>
-<div id='dropable3' class='dropable'>Droppable 3</div>
-<div id='dropable4' class='dropable'>Droppable 4</div>
-<div id='dropable5' class='dropable'>Droppable 5</div>
-<div id='dropable6' class='dropable'>Droppable 6</div>
+<div id='dropable1' class='dropable'>Change Color</div>
+<div id='dropable2' class='dropable'>Hide</div>
+<div id='dropable3' class='dropable'>Add Animation</div>
 
 <script type='text/javascript' src='js/extensions.js'></script>
 <script type='text/javascript' src='js/droppable.js'></script>
 <script type='text/javascript' src='js/draggable.js'></script>
 <script>
-var yb = new Draggable('draggable1', function(id) {
+var dg1 = new Draggable('draggable1', function(id) {
 	// alert(id);
 });
-var ct = new Draggable('draggable2', function(id) {
+var dg2 = new Draggable('draggable2', function(id) {
 	// alert(id);
 });
-var ct = new Draggable('draggable3', function(id) {
+var dg3 = new Draggable('draggable3', function(id) {
 	// alert(id);
 });
 
 var dp1 = droppable.add('dropable1', function(id) {
-	document.getElementById(id).style.display = 'none';
+	document.getElementById(id).style.background = "gray";
 });
 var dp2 = droppable.add('dropable2', function(id) {
 	document.getElementById(id).style.display = 'none';
 });
-var dp2 = droppable.add('dropable3', function(id) {
-	document.getElementById(id).style.display = 'none';
-});
-var dp2 = droppable.add('dropable4', function(id) {
-	document.getElementById(id).style.display = 'none';
-});
-var dp2 = droppable.add('dropable5', function(id) {
-	document.getElementById(id).style.display = 'none';
-});
-var dp2 = droppable.add('dropable6', function(id) {
-	document.getElementById(id).style.display = 'none';
+var dp3 = droppable.add('dropable3', function(id) {
+	document.getElementById(id).addClass('pulsing');
 });
 </script>
 </body>

@@ -41,25 +41,32 @@ Draggable.prototype.handleEvent = function(e) {
 	e.preventDefault();
 };
 
+/*
+ *  @startX : X coordinate of mouse|touch, when event just fired.
+ *  @startY : Y coordinate of mouse|touch, when event just fired.
+ * 
+ *  @offsetX : X coordinate of element when event just fired.
+ *  @offsetY : Y coordinate of element when event just fired.
+ */
 Draggable.prototype.onDragStart = function(x, y) {
 	this.el.addClass('draggable');
 	this.el.style['zIndex'] = Draggable.MAX_Z++;
 	this.state = Draggable.STATE.DRAG;
-	this.offsetX = this.el.offsetLeft;
-	this.offsetY = this.el.offsetTop;
 	this.startX = x;
 	this.startY = y;
+	this.offsetX = this.el.getLeft();
+	this.offsetY = this.el.getTop();
+	this.saveState();
+	this.move(x, y);
 	
 	document.documentElement.addEventListener(Draggable.EVT_MOVE, this, false);
 	document.documentElement.addEventListener(Draggable.EVT_END, this, false);
+	droppable.refresh();
 };
 
 Draggable.prototype.onDragging = function(x, y) {
 	if ( this.state === Draggable.STATE.DRAG && !Draggable.isPending ) {
-		this.el.style.top = (this.offsetY + (y - this.startY)) + 'px';
-		this.el.style.left = (this.offsetX + (x - this.startX)) + 'px';
-		this.pending();
-		
+		this.move(x, y);
 		droppable.check(x, y);
 	}
 };
@@ -67,14 +74,38 @@ Draggable.prototype.onDragging = function(x, y) {
 Draggable.prototype.onDragEnd = function(x, y) {
 	var id = droppable.dropped(x, y, this.el.id);
 	
-	if ( id !== undefined ) {
+	if ( id !== undefined && typeof this.callback === 'function' ) {
 		this.callback(id);
 	}
 	
-	document.documentElement.removeEventListener(Draggable.EVT_MOVE, this, false);
-	document.documentElement.removeEventListener(Draggable.EVT_END, this, false);
 	this.state = Draggable.STATE.IDLE;
 	this.el.removeClass('draggable');
+	this.move(x, y);
+	
+	document.documentElement.removeEventListener(Draggable.EVT_MOVE, this, false);
+	document.documentElement.removeEventListener(Draggable.EVT_END, this, false);
+	droppable.refresh();
+};
+
+Draggable.prototype.move = function(x, y) {
+	switch ( this.position ) {
+	case 'relative':
+		this.el.style.top = (this.storedTop + (y-this.startY)) + 'px';
+		this.el.style.left = (this.storedLeft + (x-this.startX)) + 'px';
+		break;
+	
+	default:
+		this.el.style.top = (this.offsetY + (y - this.startY)) + 'px';
+		this.el.style.left = (this.offsetX + (x - this.startX)) + 'px';
+	}
+};
+
+Draggable.prototype.saveState = function() {
+	var css = this.el.ownerDocument.defaultView.getComputedStyle(this.el, null);
+	
+	this.position = css.getPropertyValue('position');
+	this.storedTop = parseInt( css.getPropertyValue('top') );
+	this.storedLeft = parseInt( css.getPropertyValue('left') );
 };
 
 
