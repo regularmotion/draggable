@@ -30,7 +30,7 @@ Draggable.prototype.handleEvent = function(e) {
 			break;
 		
 		case Draggable.EVT_MOVE:
-			this.onDragging(x, y);
+			if ( !Draggable.isPending ) this.onDragging(x, y);
 			break;
 		
 		case Draggable.EVT_END:
@@ -65,8 +65,9 @@ Draggable.prototype.onDragStart = function(x, y) {
 };
 
 Draggable.prototype.onDragging = function(x, y) {
-	if ( this.state === Draggable.STATE.DRAG && !Draggable.isPending ) {
+	if ( this.state === Draggable.STATE.DRAG ) {
 		this.move(x, y);
+		this.pending();
 		droppable.check(x, y);
 	}
 };
@@ -115,8 +116,8 @@ Draggable.prototype.saveState = function() {
  */
 Draggable.prototype.pending = function() {
 	Draggable.isPending = true;
-		
-	setTimeout(function(){
+	
+	setTimeout(function() {
 		Draggable.isPending = false;
-	}, 20);
+	}, 30);
 };
